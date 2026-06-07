@@ -1,0 +1,30 @@
+name: CI Training Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  train:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.7'
+
+      - name: Install dependencies
+        run: |
+          pip install mlflow==2.19.0 scikit-learn pandas numpy matplotlib
+
+      - name: Run MLflow Project
+        run: |
+          cd MLProject
+          mlflow run . --no-conda
