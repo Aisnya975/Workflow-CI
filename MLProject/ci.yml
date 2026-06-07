@@ -1,4 +1,4 @@
-name: CI Training Pipeline
+name: CI Training Pipeline with Artifact Storage
 
 on:
   push:
@@ -28,3 +28,9 @@ jobs:
         run: |
           cd MLProject
           mlflow run . --no-conda
+
+      - name: Upload artifacts to GitHub
+        uses: actions/upload-artifact@v3
+        with:
+          name: mlflow-artifacts
+          path: MLProject/mlruns/
