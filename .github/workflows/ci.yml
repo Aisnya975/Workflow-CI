@@ -24,13 +24,12 @@ jobs:
         run: |
           pip install mlflow==2.19.0 scikit-learn pandas numpy matplotlib
 
-      - name: Run training
+      - name: Run MLflow Project
         run: |
-          cd MLProject
-          python modelling.py --n_estimators 100 --max_depth 5
+          mlflow run MLProject --env-manager=local
 
       - name: Upload artifacts to GitHub
         uses: actions/upload-artifact@v4
         with:
           name: mlflow-artifacts
-          path: MLProject/mlruns/
+          path: mlruns/
